@@ -31,6 +31,8 @@ public class AESDemo {
 	    byte[] decrypted = cipher.doFinal(actualEnc);
 	    System.out.println("decrypted::"+decrypted);
 	    return new String(decrypted);
+	    
+	    
 	}
 
 	public String decrypt(final String encString) throws GeneralSecurityException {
