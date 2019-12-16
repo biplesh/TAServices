@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	<definition name="base.definition" template="/masterpages/master.jsp">
+		<put-attribute name="header" value="/masterpages/header.jsp" />
+<!-- 		<put-attribute name="navigation" value="/masterpages/navigation.jsp" /> -->
+		<put-attribute name="footer" value="/masterpages/footer.jsp" />
+	</definition>
+	
+</tiles-definitions>

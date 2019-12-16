@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+  						   http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+						   http://www.springframework.org/schema/context
+						   http://www.springframework.org/schema/context/spring-context-4.0.xsd
+						   http://www.springframework.org/schema/tx
+						   http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<context:component-scan base-package="org.japit.comp.labour" />
+
+    <!-- <bean id="shopBean" class="org.japit.comp.labour.beans.ShopBean" scope="request"/> -->
+     <!-- <bean id="mailService" class="com.techhub.email.MailService" scope="request"/> -->
+
+	<!-- Database Configuration Start here -->
+	<context:property-placeholder location="classpath:database.properties" />
+	<tx:annotation-driven transaction-manager="hibernateTransactionManager" />
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+      	<property name="sessionFactory" ref="sessionFactory" />
+   	</bean>
+	<bean  id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${database.driver}"></property>
+		<property name="url" value="${database.url}"></property>
+		<property name="username" value="${database.user}"></property>
+		<property name="password" value="${database.password}"></property>
+	</bean>
+
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="packagesToScan">
+       		<list>
+           		<value>org.japit.comp.labour.model</value>
+       		</list>
+    	</property> 
+		<property name="hibernateProperties">
+			<props>
+				<!-- <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop> -->
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.connection.pool_size">1000</prop>  
+				<prop key="hibernate.connection.release_mode">on_close</prop> 
+				<!-- Enable Hibernate's current session context -->
+		        <prop key="current_session_context_class">org.hibernate.context.ManagedSessionContext</prop>
+		        <prop key="hibernate.cache.use_second_level_cache">false</prop>
+		        <prop key="hibernate.cache.use_query_cache">false</prop>
+		        <!-- Disable the second-level cache  -->
+		        <prop key="cache.provider_class">org.hibernate.cache.NoCacheProvider</prop> 
+			</props>
+		</property>
+	</bean>
+	<!-- Database Configuration End Here -->
+</beans>
